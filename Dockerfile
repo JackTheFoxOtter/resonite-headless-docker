@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/runtime:9.0
+FROM mcr.microsoft.com/dotnet/runtime:10.0
 
 LABEL name=resonite-headless maintainer="jackthefoxotter@gmail.com"
 
@@ -33,18 +33,17 @@ RUN	sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 	update-locale LANG=en_GB.UTF-8 && \
 	rm -rf /var/lib/{apt,dpkg,cache}
 
-ENV	LANG en_GB.UTF-8
+ENV	LANG=en_GB.UTF-8
 
 # Fix the LetsEncrypt CA cert
 RUN	sed -i 's#mozilla/DST_Root_CA_X3.crt#!mozilla/DST_Root_CA_X3.crt#' /etc/ca-certificates.conf && update-ca-certificates
 
 # Create user, install SteamCMD
-RUN	addgroup --gid ${HOSTGROUPID} ${USER}
+RUN	groupadd --gid ${HOSTGROUPID} ${USER}
 
-RUN	adduser \
-	--disabled-login \
-	--shell /bin/bash \
-	--gecos "" \
+RUN	useradd \
+	--shell /usr/sbin/nologin \
+	--no-create-home \
 	--gid ${HOSTGROUPID} \
 	--uid ${HOSTUSERID} \
 	${USER}

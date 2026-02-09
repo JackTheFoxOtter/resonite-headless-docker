@@ -30,4 +30,8 @@ fi
 
 mkdir ${STEAMAPPDIR}/Headless/RuntimeData && chown -R resonite:resonite ${STEAMAPPDIR}/Headless/RuntimeData
 
+if [ -x "/post_install_hook.sh" ]; then
+    /post_install_hook.sh
+fi
+
 exec $*

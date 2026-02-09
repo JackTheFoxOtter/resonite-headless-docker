@@ -30,8 +30,11 @@ fi
 
 mkdir ${STEAMAPPDIR}/Headless/RuntimeData && chown -R resonite:resonite ${STEAMAPPDIR}/Headless/RuntimeData
 
-if [ -x "/post_install_hook.sh" ]; then
-    /post_install_hook.sh
+if [ -e "/ExtraScripts/post_setup_hook.sh" ]; then
+    echo "Executing post-setup script /ExtraScripts/post_setup_hook.sh"
+    /ExtraScripts/post_setup_hook.sh
+else
+    echo "No post-setup script found at /ExtraScripts/post_setup_hook.sh"
 fi
 
 exec $*

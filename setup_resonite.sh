@@ -18,6 +18,7 @@ bash "${STEAMCMDDIR}/steamcmd.sh" \
     +login ${STEAMLOGIN} \
     +app_license_request ${STEAMAPPID} \
     +app_update ${STEAMAPPID} ${BETA_ARGS} validate \
+    +@sSteamCmdForcePlatformType windows \
     +quit
 
 if [ "$CLEANASSETS" = true ]; then
